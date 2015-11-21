@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Narrative Consciousness</title>
+    <description>Quantitative Research on Quality of Consciousness</description>
+    <link>/</link>
+    <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Sat, 21 Nov 2015 04:33:07 +0330</pubDate>
+    <lastBuildDate>Sat, 21 Nov 2015 04:33:07 +0330</lastBuildDate>
+    <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>Reachability Problem مساله دسترسی پذیری</title>
+        <description>&lt;p&gt;Solving Problem of Reachability .&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;Test I : 
+$$X^2 + Y^2 = Z^2 $$&lt;/p&gt;
+
+&lt;p&gt;Test II : &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-clojure&quot; data-lang=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;defn &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;eightqueen&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;*n&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;&amp;gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Test III : 
+&lt;div align=&quot;right&quot;&gt; حل مساله دسترسی پذیری توسط الگوریتم ژنتیک&lt;/div&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 21 Nov 2015 03:08:00 +0330</pubDate>
+        <link>/2015/11/21/Reachability-Problem.html</link>
+        <guid isPermaLink="true">/2015/11/21/Reachability-Problem.html</guid>
+        
+        <category>AI</category>
+        
+        <category>Genetic-Algorithms</category>
+        
+        <category>Clojure</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Maximal Clique Problem مساله یافتن بزرگترین کلیک گراف</title>
+        <description>&lt;p&gt;Finding Maximal Clique of graphs using AI Methods .&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;Test I : 
+$$X^2 + Y^2 = Z^2 $$&lt;/p&gt;
+
+&lt;p&gt;Test II : &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-clojure&quot; data-lang=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;defn &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;eightqueen&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;*n&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;&amp;gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Test III : 
+&lt;div align=&quot;right&quot;&gt; مساله بزرگترین کلیک توسط متاهیوریستیک ها&lt;/div&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 21 Nov 2015 03:08:00 +0330</pubDate>
+        <link>/2015/11/21/Maximal-Clique-Problem.html</link>
+        <guid isPermaLink="true">/2015/11/21/Maximal-Clique-Problem.html</guid>
+        
+        <category>AI</category>
+        
+        <category>Genetic-Algorithms</category>
+        
+        <category>Clojure</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Hexy Game بازی هگزی</title>
+        <description>&lt;p&gt;A Computer Based Hexy Game using AI Methods .&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;Test I : 
+$$X^2 + Y^2 = Z^2 $$&lt;/p&gt;
+
+&lt;p&gt;Test II : &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-clojure&quot; data-lang=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;defn &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;eightqueen&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;*n&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;&amp;gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Test III : 
+&lt;div align=&quot;right&quot;&gt; برنامه کامپیوتری بازی هگزی&lt;/div&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 21 Nov 2015 03:08:00 +0330</pubDate>
+        <link>/2015/11/21/Hexy-Game.html</link>
+        <guid isPermaLink="true">/2015/11/21/Hexy-Game.html</guid>
+        
+        <category>AI</category>
+        
+        <category>Genetic-Algorithms</category>
+        
+        <category>Clojure</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>8 Queens Puzzle مساله هشت وزیر</title>
+        <description>&lt;p&gt;Solving Problem of 8 Queens using genetic algorithm .&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;Test I : 
+$$X^2 + Y^2 = Z^2 $$&lt;/p&gt;
+
+&lt;p&gt;Test II : &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-clojure&quot; data-lang=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;defn &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;eightqueen&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;*n&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;&amp;gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Test III : 
+&lt;div align=&quot;right&quot;&gt; حل مساله 8 وزیر توسط الگوریتم ژنتیک&lt;/div&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 21 Nov 2015 03:08:00 +0330</pubDate>
+        <link>/2015/11/21/Eight-Queens-Puzzle.html</link>
+        <guid isPermaLink="true">/2015/11/21/Eight-Queens-Puzzle.html</guid>
+        
+        <category>AI</category>
+        
+        <category>Genetic-Algorithms</category>
+        
+        <category>Clojure</category>
+        
+        
+      </item>
+    
+  </channel>
+</rss>
