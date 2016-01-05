@@ -5,7 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description"
-    content="8 Queens Puzzle مساله هشت وزیر Solving Problem of 8 Queens using genetic algorithm .
+    content="8 Queens Puzzle مساله هشت وزیر Solving Problem of 8 Queens using genetic algorithm in Clojure.
+ حل مساله 8 وزیر توسط الگوریتم ژنتیک
  Quantitative Research on Quality of Consciousness">
   <title> 8 Queens Puzzle مساله هشت وزیر - Narrative Consciousness </title>
 
@@ -15,6 +16,7 @@
   <link media="all" rel="stylesheet" href="/assets/css/site.css">
   <link media="all" rel="stylesheet" href="/assets/css/syntax.css">
   
+
 </head>
 
 
@@ -98,156 +100,149 @@
         </header>
 
         <article class="page-content">
-          <p>Solving Problem of 8 Queens using genetic algorithm .</p>
+          <p>Solving Problem of 8 Queens using genetic algorithm in Clojure.
+<div align="right"> حل مساله 8 وزیر توسط الگوریتم ژنتیک</div></p>
 
 <!--more-->
 
+<p>Source Code is on  my Github : [https://github.com/zorvan/N-Queens]</p>
 
-<a  href="https://github.com/zorvan/N-Queens">Source Code </a>
+<figure class="highlight"><pre><code class="language-clojure" data-lang="clojure">   <span class="c1">; Written by Amin Razavi , Dec 2015</span>
+<span class="c1">; Amirkabir University of Technology (Tehran Polytechnic)</span>
 
+<span class="p">(</span><span class="kd">ns </span><span class="nv">core</span>
+  <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">clojure.math.numeric-tower</span> <span class="ss">:only</span> <span class="p">(</span><span class="nf">abs</span><span class="p">)</span> <span class="ss">:as</span> <span class="nv">tower</span><span class="p">])</span> 
+  <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">clojure.set</span> <span class="ss">:only</span> <span class="p">(</span><span class="nf">difference</span><span class="p">)</span> <span class="ss">:as</span> <span class="nv">Set</span><span class="p">])</span>
+  <span class="p">(</span><span class="ss">:gen-class</span><span class="p">))</span>
 
-<div class="highlight">
-  <pre><code class="language-clojure" data-lang="clojure">
-   ; Written by Amin Razavi , Dec 2015
-; Amirkabir University of Technology (Tehran Polytechnic)
+<span class="c1">; Produce a Random Gene</span>
+<span class="p">(</span><span class="kd">defn </span><span class="nv">init-gene</span> <span class="p">[</span><span class="nv">NumQueens</span> <span class="nv">GENE</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">reduce </span><span class="o">#</span><span class="p">(</span><span class="nb">assoc </span><span class="nv">%</span> <span class="nv">%2</span> <span class="p">(</span><span class="nb">rand-int </span><span class="nv">NumQueens</span><span class="p">))</span> <span class="nv">GENE</span> <span class="p">(</span><span class="nb">range </span><span class="p">(</span><span class="nb">count </span><span class="nv">GENE</span><span class="p">))))</span>
 
-(ns core
-  (:require [clojure.math.numeric-tower :only (abs) :as tower]) 
-  (:require [clojure.set :only (difference) :as Set])
-  (:gen-class))
-
-; Produce a Random Gene
-(defn init-gene [NumQueens GENE]
-  (reduce #(assoc % %2 (rand-int NumQueens)) GENE (range (count GENE))))
-
-; [It's Optional] Placing two queens in the same place is not allowed (at least at the beginning!)
-(defn validate-chromosome [chromosome] 
-  (let [SetRange (set (range (count chromosome)))]
-    (loop [distchrom (distinct chromosome)]
-      (if (= (count distchrom) (count chromosome)) (vec (sort distchrom))
-          (recur (conj distchrom [(first (Set/difference SetRange (set (map first  distchrom))))
-                                  (first (Set/difference SetRange (set (map second distchrom))))]))))))
+<span class="c1">; [It&#39;s Optional] Placing two queens in the same place is not allowed (at least at the beginning!)</span>
+<span class="p">(</span><span class="kd">defn </span><span class="nv">validate-chromosome</span> <span class="p">[</span><span class="nv">chromosome</span><span class="p">]</span> 
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">SetRange</span> <span class="p">(</span><span class="nb">set </span><span class="p">(</span><span class="nb">range </span><span class="p">(</span><span class="nb">count </span><span class="nv">chromosome</span><span class="p">)))]</span>
+    <span class="p">(</span><span class="k">loop </span><span class="p">[</span><span class="nv">distchrom</span> <span class="p">(</span><span class="nb">distinct </span><span class="nv">chromosome</span><span class="p">)]</span>
+      <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">= </span><span class="p">(</span><span class="nb">count </span><span class="nv">distchrom</span><span class="p">)</span> <span class="p">(</span><span class="nb">count </span><span class="nv">chromosome</span><span class="p">))</span> <span class="p">(</span><span class="nf">vec</span> <span class="p">(</span><span class="nb">sort </span><span class="nv">distchrom</span><span class="p">))</span>
+          <span class="p">(</span><span class="nf">recur</span> <span class="p">(</span><span class="nb">conj </span><span class="nv">distchrom</span> <span class="p">[(</span><span class="nb">first </span><span class="p">(</span><span class="nf">Set/difference</span> <span class="nv">SetRange</span> <span class="p">(</span><span class="nb">set </span><span class="p">(</span><span class="nb">map first </span> <span class="nv">distchrom</span><span class="p">))))</span>
+                                  <span class="p">(</span><span class="nb">first </span><span class="p">(</span><span class="nf">Set/difference</span> <span class="nv">SetRange</span> <span class="p">(</span><span class="nb">set </span><span class="p">(</span><span class="nb">map second </span><span class="nv">distchrom</span><span class="p">))))]))))))</span>
                               
-; Initialize Genes in the Chromosome
-(defn init-chromosome [chromosome]
-  (let [GENE (first chromosome)
-	NUMQ (count chromosome)]
-    (reduce #(assoc % %2 (init-gene NUMQ GENE)) chromosome (range (count chromosome)))))
+<span class="c1">; Initialize Genes in the Chromosome</span>
+<span class="p">(</span><span class="kd">defn </span><span class="nv">init-chromosome</span> <span class="p">[</span><span class="nv">chromosome</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">GENE</span> <span class="p">(</span><span class="nb">first </span><span class="nv">chromosome</span><span class="p">)</span>
+    <span class="nv">NUMQ</span> <span class="p">(</span><span class="nb">count </span><span class="nv">chromosome</span><span class="p">)]</span>
+    <span class="p">(</span><span class="nb">reduce </span><span class="o">#</span><span class="p">(</span><span class="nb">assoc </span><span class="nv">%</span> <span class="nv">%2</span> <span class="p">(</span><span class="nf">init-gene</span> <span class="nv">NUMQ</span> <span class="nv">GENE</span><span class="p">))</span> <span class="nv">chromosome</span> <span class="p">(</span><span class="nb">range </span><span class="p">(</span><span class="nb">count </span><span class="nv">chromosome</span><span class="p">)))))</span>
 
-(defn codiagonal? [q1 q2]
-  (if ( = (tower/abs (- (first q1 ) (first q2))) (tower/abs (- (second q1) (second q2)))) true false))
+<span class="p">(</span><span class="kd">defn </span><span class="nv">codiagonal?</span> <span class="p">[</span><span class="nv">q1</span> <span class="nv">q2</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">if </span><span class="p">(</span> <span class="nb">= </span><span class="p">(</span><span class="nf">tower/abs</span> <span class="p">(</span><span class="nb">- </span><span class="p">(</span><span class="nb">first </span><span class="nv">q1</span> <span class="p">)</span> <span class="p">(</span><span class="nb">first </span><span class="nv">q2</span><span class="p">)))</span> <span class="p">(</span><span class="nf">tower/abs</span> <span class="p">(</span><span class="nb">- </span><span class="p">(</span><span class="nb">second </span><span class="nv">q1</span><span class="p">)</span> <span class="p">(</span><span class="nb">second </span><span class="nv">q2</span><span class="p">))))</span> <span class="nv">true</span> <span class="nv">false</span><span class="p">))</span>
 
-(defn cocolumn? [q1 q2]
-  (if (= (first q1) (first q2)) true false))
+<span class="p">(</span><span class="kd">defn </span><span class="nv">cocolumn?</span> <span class="p">[</span><span class="nv">q1</span> <span class="nv">q2</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">= </span><span class="p">(</span><span class="nb">first </span><span class="nv">q1</span><span class="p">)</span> <span class="p">(</span><span class="nb">first </span><span class="nv">q2</span><span class="p">))</span> <span class="nv">true</span> <span class="nv">false</span><span class="p">))</span>
 
-(defn corow? [q1 q2]
-  (if (= (second q1) (second q2)) true false))
+<span class="p">(</span><span class="kd">defn </span><span class="nv">corow?</span> <span class="p">[</span><span class="nv">q1</span> <span class="nv">q2</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">= </span><span class="p">(</span><span class="nb">second </span><span class="nv">q1</span><span class="p">)</span> <span class="p">(</span><span class="nb">second </span><span class="nv">q2</span><span class="p">))</span> <span class="nv">true</span> <span class="nv">false</span><span class="p">))</span>
 
-(defn fitness [chromosome]
-  (let [N (count chromosome)]
-	(reduce +
-		(for [i (range N) j (range N) :when (> j i)]
-			(let [q1 (get chromosome i) q2 (get chromosome j)]
-				(if (or (= q1 q2) (corow? q1 q2) (cocolumn? q1 q2) (codiagonal? q1 q2)) 1 0))))))
+<span class="p">(</span><span class="kd">defn </span><span class="nv">fitness</span> <span class="p">[</span><span class="nv">chromosome</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">N</span> <span class="p">(</span><span class="nb">count </span><span class="nv">chromosome</span><span class="p">)]</span>
+    <span class="p">(</span><span class="nb">reduce </span><span class="nv">+</span>
+        <span class="p">(</span><span class="nb">for </span><span class="p">[</span><span class="nv">i</span> <span class="p">(</span><span class="nb">range </span><span class="nv">N</span><span class="p">)</span> <span class="nv">j</span> <span class="p">(</span><span class="nb">range </span><span class="nv">N</span><span class="p">)</span> <span class="ss">:when</span> <span class="p">(</span><span class="nb">&gt; </span><span class="nv">j</span> <span class="nv">i</span><span class="p">)]</span>
+            <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">q1</span> <span class="p">(</span><span class="nb">get </span><span class="nv">chromosome</span> <span class="nv">i</span><span class="p">)</span> <span class="nv">q2</span> <span class="p">(</span><span class="nb">get </span><span class="nv">chromosome</span> <span class="nv">j</span><span class="p">)]</span>
+                <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">or </span><span class="p">(</span><span class="nb">= </span><span class="nv">q1</span> <span class="nv">q2</span><span class="p">)</span> <span class="p">(</span><span class="nf">corow?</span> <span class="nv">q1</span> <span class="nv">q2</span><span class="p">)</span> <span class="p">(</span><span class="nf">cocolumn?</span> <span class="nv">q1</span> <span class="nv">q2</span><span class="p">)</span> <span class="p">(</span><span class="nf">codiagonal?</span> <span class="nv">q1</span> <span class="nv">q2</span><span class="p">))</span> <span class="mi">1</span> <span class="mi">0</span><span class="p">))))))</span>
 
-(defn update-fitness [chromosome]
-  (let [fc (first chromosome)]
-    (vector fc (fitness fc))))
+<span class="p">(</span><span class="kd">defn </span><span class="nv">update-fitness</span> <span class="p">[</span><span class="nv">chromosome</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">fc</span> <span class="p">(</span><span class="nb">first </span><span class="nv">chromosome</span><span class="p">)]</span>
+    <span class="p">(</span><span class="nb">vector </span><span class="nv">fc</span> <span class="p">(</span><span class="nf">fitness</span> <span class="nv">fc</span><span class="p">))))</span>
 
-(defn init-population [population]
-  (let [RN (range (count population)) 
-        ipop (reduce #(update-in % [%2 0] init-chromosome) population RN)]
-    (vec (sort-by #(second %) < (reduce #(update % %2 update-fitness) ipop RN)))))
+<span class="p">(</span><span class="kd">defn </span><span class="nv">init-population</span> <span class="p">[</span><span class="nv">population</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">RN</span> <span class="p">(</span><span class="nb">range </span><span class="p">(</span><span class="nb">count </span><span class="nv">population</span><span class="p">))</span> 
+        <span class="nv">ipop</span> <span class="p">(</span><span class="nb">reduce </span><span class="o">#</span><span class="p">(</span><span class="nf">update-in</span> <span class="nv">%</span> <span class="p">[</span><span class="nv">%2</span> <span class="mi">0</span><span class="p">]</span> <span class="nv">init-chromosome</span><span class="p">)</span> <span class="nv">population</span> <span class="nv">RN</span><span class="p">)]</span>
+    <span class="p">(</span><span class="nf">vec</span> <span class="p">(</span><span class="nb">sort-by </span><span class="o">#</span><span class="p">(</span><span class="nb">second </span><span class="nv">%</span><span class="p">)</span> <span class="nb">&lt; </span><span class="p">(</span><span class="nb">reduce </span><span class="o">#</span><span class="p">(</span><span class="nf">update</span> <span class="nv">%</span> <span class="nv">%2</span> <span class="nv">update-fitness</span><span class="p">)</span> <span class="nv">ipop</span> <span class="nv">RN</span><span class="p">)))))</span>
 
 
-; sequence of partial sum of Fitnesses (last number in the seq is sum of all fitnesses)
-(defn SumFit [population]
-  (let [Fits (map second population)]
-    (rest (reduce #(conj % (+ %2 (last %))) [0] Fits))))
+<span class="c1">; sequence of partial sum of Fitnesses (last number in the seq is sum of all fitnesses)</span>
+<span class="p">(</span><span class="kd">defn </span><span class="nv">SumFit</span> <span class="p">[</span><span class="nv">population</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">Fits</span> <span class="p">(</span><span class="nb">map second </span><span class="nv">population</span><span class="p">)]</span>
+    <span class="p">(</span><span class="nb">rest </span><span class="p">(</span><span class="nb">reduce </span><span class="o">#</span><span class="p">(</span><span class="nb">conj </span><span class="nv">%</span> <span class="p">(</span><span class="nb">+ </span><span class="nv">%2</span> <span class="p">(</span><span class="nb">last </span><span class="nv">%</span><span class="p">)))</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="nv">Fits</span><span class="p">))))</span>
 
-; Probability of selection is proportional to fitness
-(defn ChooseParent [population]
-  (let [SFQ (reverse (SumFit population))
-	RND (rand-int (first SFQ))]
-	(dec (count (take-while #(> % RND) SFQ)))))
+<span class="c1">; Probability of selection is proportional to fitness</span>
+<span class="p">(</span><span class="kd">defn </span><span class="nv">ChooseParent</span> <span class="p">[</span><span class="nv">population</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">SFQ</span> <span class="p">(</span><span class="nb">reverse </span><span class="p">(</span><span class="nf">SumFit</span> <span class="nv">population</span><span class="p">))</span>
+    <span class="nv">RND</span> <span class="p">(</span><span class="nb">rand-int </span><span class="p">(</span><span class="nb">first </span><span class="nv">SFQ</span><span class="p">))]</span>
+    <span class="p">(</span><span class="nb">dec </span><span class="p">(</span><span class="nb">count </span><span class="p">(</span><span class="nb">take-while </span><span class="o">#</span><span class="p">(</span><span class="nb">&gt; </span><span class="nv">%</span> <span class="nv">RND</span><span class="p">)</span> <span class="nv">SFQ</span><span class="p">)))))</span>
 
-; an Auxiliary function for selecting parents
-(defn AuxSelectParent [population]
-  (let [P1 (ChooseParent population) 
-        P2 (ChooseParent population)]
-    (if (= P1 P2) [P1 (ChooseParent population)] [P1 P2])))
+<span class="c1">; an Auxiliary function for selecting parents</span>
+<span class="p">(</span><span class="kd">defn </span><span class="nv">AuxSelectParent</span> <span class="p">[</span><span class="nv">population</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">P1</span> <span class="p">(</span><span class="nf">ChooseParent</span> <span class="nv">population</span><span class="p">)</span> 
+        <span class="nv">P2</span> <span class="p">(</span><span class="nf">ChooseParent</span> <span class="nv">population</span><span class="p">)]</span>
+    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">= </span><span class="nv">P1</span> <span class="nv">P2</span><span class="p">)</span> <span class="p">[</span><span class="nv">P1</span> <span class="p">(</span><span class="nf">ChooseParent</span> <span class="nv">population</span><span class="p">)]</span> <span class="p">[</span><span class="nv">P1</span> <span class="nv">P2</span><span class="p">])))</span>
 
-; n pairs of parents will be choosen
-(defn Select-Parents [population n] 
-  (repeatedly n #(AuxSelectParent population)))
+<span class="c1">; n pairs of parents will be choosen</span>
+<span class="p">(</span><span class="kd">defn </span><span class="nv">Select-Parents</span> <span class="p">[</span><span class="nv">population</span> <span class="nv">n</span><span class="p">]</span> 
+  <span class="p">(</span><span class="nf">repeatedly</span> <span class="nv">n</span> <span class="o">#</span><span class="p">(</span><span class="nf">AuxSelectParent</span> <span class="nv">population</span><span class="p">)))</span>
 
-(defn Select-Mutants [population PopNum MutationRate]
-   (if (zero? MutationRate) [(rand-int PopNum)]
-        (vec (take MutationRate (repeatedly #(rand-int PopNum))))))
+<span class="p">(</span><span class="kd">defn </span><span class="nv">Select-Mutants</span> <span class="p">[</span><span class="nv">population</span> <span class="nv">PopNum</span> <span class="nv">MutationRate</span><span class="p">]</span>
+   <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">zero? </span><span class="nv">MutationRate</span><span class="p">)</span> <span class="p">[(</span><span class="nb">rand-int </span><span class="nv">PopNum</span><span class="p">)]</span>
+        <span class="p">(</span><span class="nf">vec</span> <span class="p">(</span><span class="nb">take </span><span class="nv">MutationRate</span> <span class="p">(</span><span class="nf">repeatedly</span> <span class="o">#</span><span class="p">(</span><span class="nb">rand-int </span><span class="nv">PopNum</span><span class="p">))))))</span>
 
-; Mutate a chromosome (random gene & random value for coordinates)
-(defn mutate [chromosome]
-  (let [genes (first chromosome)
-        N (count genes) 
-        rndgene (rand-int N) 
-	rndcoordinates [(rand-int N) (rand-int N)] ]
-    (update-fitness [(assoc genes rndgene rndcoordinates) 28])))
+<span class="c1">; Mutate a chromosome (random gene &amp; random value for coordinates)</span>
+<span class="p">(</span><span class="kd">defn </span><span class="nv">mutate</span> <span class="p">[</span><span class="nv">chromosome</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">genes</span> <span class="p">(</span><span class="nb">first </span><span class="nv">chromosome</span><span class="p">)</span>
+        <span class="nv">N</span> <span class="p">(</span><span class="nb">count </span><span class="nv">genes</span><span class="p">)</span> 
+        <span class="nv">rndgene</span> <span class="p">(</span><span class="nb">rand-int </span><span class="nv">N</span><span class="p">)</span> 
+    <span class="nv">rndcoordinates</span> <span class="p">[(</span><span class="nb">rand-int </span><span class="nv">N</span><span class="p">)</span> <span class="p">(</span><span class="nb">rand-int </span><span class="nv">N</span><span class="p">)]</span> <span class="p">]</span>
+    <span class="p">(</span><span class="nf">update-fitness</span> <span class="p">[(</span><span class="nb">assoc </span><span class="nv">genes</span> <span class="nv">rndgene</span> <span class="nv">rndcoordinates</span><span class="p">)</span> <span class="mi">28</span><span class="p">])))</span>
 
-; Cross-over two chromosomes
-(defn xover [chrom1 chrom2]
-  (let [N (count chrom1)
-		node (inc (rand-int N)) cnode (- N node)
-        intercombine (concat (take node chrom1) (take-last cnode chrom2) (take-last cnode chrom1) (take node chrom2))] 
-    [[(vec (take N intercombine)) 0]
-     [(vec (take-last N intercombine)) 0]]))
+<span class="c1">; Cross-over two chromosomes</span>
+<span class="p">(</span><span class="kd">defn </span><span class="nv">xover</span> <span class="p">[</span><span class="nv">chrom1</span> <span class="nv">chrom2</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">N</span> <span class="p">(</span><span class="nb">count </span><span class="nv">chrom1</span><span class="p">)</span>
+        <span class="nb">node </span><span class="p">(</span><span class="nb">inc </span><span class="p">(</span><span class="nb">rand-int </span><span class="nv">N</span><span class="p">))</span> <span class="nv">cnode</span> <span class="p">(</span><span class="nb">- </span><span class="nv">N</span> <span class="nv">node</span><span class="p">)</span>
+        <span class="nv">intercombine</span> <span class="p">(</span><span class="nb">concat </span><span class="p">(</span><span class="nb">take node </span><span class="nv">chrom1</span><span class="p">)</span> <span class="p">(</span><span class="nf">take-last</span> <span class="nv">cnode</span> <span class="nv">chrom2</span><span class="p">)</span> <span class="p">(</span><span class="nf">take-last</span> <span class="nv">cnode</span> <span class="nv">chrom1</span><span class="p">)</span> <span class="p">(</span><span class="nb">take node </span><span class="nv">chrom2</span><span class="p">))]</span> 
+    <span class="p">[[(</span><span class="nf">vec</span> <span class="p">(</span><span class="nb">take </span><span class="nv">N</span> <span class="nv">intercombine</span><span class="p">))</span> <span class="mi">0</span><span class="p">]</span>
+     <span class="p">[(</span><span class="nf">vec</span> <span class="p">(</span><span class="nf">take-last</span> <span class="nv">N</span> <span class="nv">intercombine</span><span class="p">))</span> <span class="mi">0</span><span class="p">]]))</span>
 
-; generate children
-(defn Children [population Parents]
-  (reduce into [] (pmap #(xover (get-in population [(first %) 0]) (get-in population [(second %) 0])) Parents)))
+<span class="c1">; generate children</span>
+<span class="p">(</span><span class="kd">defn </span><span class="nv">Children</span> <span class="p">[</span><span class="nv">population</span> <span class="nv">Parents</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">reduce into </span><span class="p">[]</span> <span class="p">(</span><span class="nf">pmap</span> <span class="o">#</span><span class="p">(</span><span class="nf">xover</span> <span class="p">(</span><span class="nf">get-in</span> <span class="nv">population</span> <span class="p">[(</span><span class="nb">first </span><span class="nv">%</span><span class="p">)</span> <span class="mi">0</span><span class="p">])</span> <span class="p">(</span><span class="nf">get-in</span> <span class="nv">population</span> <span class="p">[(</span><span class="nb">second </span><span class="nv">%</span><span class="p">)</span> <span class="mi">0</span><span class="p">]))</span> <span class="nv">Parents</span><span class="p">)))</span>
 
-; Produce New (Crossover) Children + Old Population  
-(defn New-Population [population XoverRate]
-  (into population 
-        (pmap update-fitness 
-              (Children population (Select-Parents population XoverRate)))))
+<span class="c1">; Produce New (Crossover) Children + Old Population  </span>
+<span class="p">(</span><span class="kd">defn </span><span class="nv">New-Population</span> <span class="p">[</span><span class="nv">population</span> <span class="nv">XoverRate</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">into </span><span class="nv">population</span> 
+        <span class="p">(</span><span class="nf">pmap</span> <span class="nv">update-fitness</span> 
+              <span class="p">(</span><span class="nf">Children</span> <span class="nv">population</span> <span class="p">(</span><span class="nf">Select-Parents</span> <span class="nv">population</span> <span class="nv">XoverRate</span><span class="p">)))))</span>
 
-; Apply Mutation Operator on the New Populatuion
-(defn Mutate-Population [population PopNum MutationRate]
-  (vec (sort-by #(second %) < (reduce #(update % %2 mutate) population (Select-Mutants population PopNum MutationRate)))))
+<span class="c1">; Apply Mutation Operator on the New Populatuion</span>
+<span class="p">(</span><span class="kd">defn </span><span class="nv">Mutate-Population</span> <span class="p">[</span><span class="nv">population</span> <span class="nv">PopNum</span> <span class="nv">MutationRate</span><span class="p">]</span>
+  <span class="p">(</span><span class="nf">vec</span> <span class="p">(</span><span class="nb">sort-by </span><span class="o">#</span><span class="p">(</span><span class="nb">second </span><span class="nv">%</span><span class="p">)</span> <span class="nb">&lt; </span><span class="p">(</span><span class="nb">reduce </span><span class="o">#</span><span class="p">(</span><span class="nf">update</span> <span class="nv">%</span> <span class="nv">%2</span> <span class="nv">mutate</span><span class="p">)</span> <span class="nv">population</span> <span class="p">(</span><span class="nf">Select-Mutants</span> <span class="nv">population</span> <span class="nv">PopNum</span> <span class="nv">MutationRate</span><span class="p">)))))</span>
 
-; if the boolean "dynamic" is true  => population will grow with XOVER-RATE
-; if the boolean "dynamic" is false => population will remain CTEPOP
-(defn Generation [population PopNum XoverRate MutationRate dynamic CTEPOP]
-  (let [mutedpop (Mutate-Population (New-Population population XoverRate) PopNum MutationRate)]
-    (if (true? dynamic) mutedpop (vec (take CTEPOP mutedpop)))))
+<span class="c1">; if the boolean &quot;dynamic&quot; is true  =&gt; population will grow with XOVER-RATE</span>
+<span class="c1">; if the boolean &quot;dynamic&quot; is false =&gt; population will remain CTEPOP</span>
+<span class="p">(</span><span class="kd">defn </span><span class="nv">Generation</span> <span class="p">[</span><span class="nv">population</span> <span class="nv">PopNum</span> <span class="nv">XoverRate</span> <span class="nv">MutationRate</span> <span class="nv">dynamic</span> <span class="nv">CTEPOP</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">mutedpop</span> <span class="p">(</span><span class="nf">Mutate-Population</span> <span class="p">(</span><span class="nf">New-Population</span> <span class="nv">population</span> <span class="nv">XoverRate</span><span class="p">)</span> <span class="nv">PopNum</span> <span class="nv">MutationRate</span><span class="p">)]</span>
+    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">true? </span><span class="nv">dynamic</span><span class="p">)</span> <span class="nv">mutedpop</span> <span class="p">(</span><span class="nf">vec</span> <span class="p">(</span><span class="nb">take </span><span class="nv">CTEPOP</span> <span class="nv">mutedpop</span><span class="p">)))))</span>
 
-; MAIN LOOP
-(defn -main [& args]
-  (if (empty? args)
-    (print "Wrong Input arguments! \n USAGE : 'Number of Queens' 'Number of Chromosomes' 'Crossover-Rate[0.0-1.0]' 'Mutation Rate[0.02-0.1]'")
-    (let [[NUM-QUEENS NUM-CHROMOSOMES XOVER-RATE MUTATION-RATE] args
-           XR (* XOVER-RATE NUM-CHROMOSOMES)
-           MR (* MUTATION-RATE NUM-CHROMOSOMES)
-           MAXFIT (/ (* NUM-QUEENS (dec NUM-QUEENS)) 2)
-           GENE [0 0] ; Gene  = Position Coordinates of each queen on the board
-           CHROMOSOME (vec (repeatedly NUM-QUEENS #(vec GENE))) ; Chromosome  = Board Configuration = Positions of Queens on the Board
-           POPULATION (vec (repeatedly NUM-CHROMOSOMES #(vec [CHROMOSOME MAXFIT])))]
-      (time 
-       (loop [i 1 NewPop (Generation (init-population POPULATION) NUM-CHROMOSOMES XR MUTATION-RATE false NUM-CHROMOSOMES)]
-         (if (zero? (second (first NewPop)))
-           (print "GOT IT! at" i "th iteration:" (first (first NewPop)) "population=" (count NewPop) "\n\t=>")
-           (if (apply = (map first (take 5 NewPop)))
-             (print "LOCAL MIN! at" i "th iteration, fitness value=" (second (first NewPop)) "population=" (count NewPop) "\n\t=>")
-             (if (> i 500) 
-               (print "TIMEOUT! fitness value=" (second (first NewPop)) "population=" (count NewPop) "\n\t=>")
-               (recur (inc i) (Generation NewPop NUM-CHROMOSOMES XR MR false NUM-CHROMOSOMES))))))))))
+<span class="c1">; MAIN LOOP</span>
+<span class="p">(</span><span class="kd">defn </span><span class="nv">-main</span> <span class="p">[</span><span class="o">&amp;</span> <span class="nv">args</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">empty?</span> <span class="nv">args</span><span class="p">)</span>
+    <span class="p">(</span><span class="nb">print </span><span class="s">&quot;Wrong Input arguments! \n USAGE : &#39;Number of Queens&#39; &#39;Number of Chromosomes&#39; &#39;Crossover-Rate[0.0-1.0]&#39; &#39;Mutation Rate[0.02-0.1]&#39;&quot;</span><span class="p">)</span>
+    <span class="p">(</span><span class="k">let </span><span class="p">[[</span><span class="nv">NUM-QUEENS</span> <span class="nv">NUM-CHROMOSOMES</span> <span class="nv">XOVER-RATE</span> <span class="nv">MUTATION-RATE</span><span class="p">]</span> <span class="nv">args</span>
+           <span class="nv">XR</span> <span class="p">(</span><span class="nb">* </span><span class="nv">XOVER-RATE</span> <span class="nv">NUM-CHROMOSOMES</span><span class="p">)</span>
+           <span class="nv">MR</span> <span class="p">(</span><span class="nb">* </span><span class="nv">MUTATION-RATE</span> <span class="nv">NUM-CHROMOSOMES</span><span class="p">)</span>
+           <span class="nv">MAXFIT</span> <span class="p">(</span><span class="nb">/ </span><span class="p">(</span><span class="nb">* </span><span class="nv">NUM-QUEENS</span> <span class="p">(</span><span class="nb">dec </span><span class="nv">NUM-QUEENS</span><span class="p">))</span> <span class="mi">2</span><span class="p">)</span>
+           <span class="nv">GENE</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">]</span> <span class="c1">; Gene  = Position Coordinates of each queen on the board</span>
+           <span class="nv">CHROMOSOME</span> <span class="p">(</span><span class="nf">vec</span> <span class="p">(</span><span class="nf">repeatedly</span> <span class="nv">NUM-QUEENS</span> <span class="o">#</span><span class="p">(</span><span class="nf">vec</span> <span class="nv">GENE</span><span class="p">)))</span> <span class="c1">; Chromosome  = Board Configuration = Positions of Queens on the Board</span>
+           <span class="nv">POPULATION</span> <span class="p">(</span><span class="nf">vec</span> <span class="p">(</span><span class="nf">repeatedly</span> <span class="nv">NUM-CHROMOSOMES</span> <span class="o">#</span><span class="p">(</span><span class="nf">vec</span> <span class="p">[</span><span class="nv">CHROMOSOME</span> <span class="nv">MAXFIT</span><span class="p">])))]</span>
+      <span class="p">(</span><span class="nb">time </span>
+       <span class="p">(</span><span class="k">loop </span><span class="p">[</span><span class="nv">i</span> <span class="mi">1</span> <span class="nv">NewPop</span> <span class="p">(</span><span class="nf">Generation</span> <span class="p">(</span><span class="nf">init-population</span> <span class="nv">POPULATION</span><span class="p">)</span> <span class="nv">NUM-CHROMOSOMES</span> <span class="nv">XR</span> <span class="nv">MUTATION-RATE</span> <span class="nv">false</span> <span class="nv">NUM-CHROMOSOMES</span><span class="p">)]</span>
+         <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">zero? </span><span class="p">(</span><span class="nb">second </span><span class="p">(</span><span class="nb">first </span><span class="nv">NewPop</span><span class="p">)))</span>
+           <span class="p">(</span><span class="nb">print </span><span class="s">&quot;GOT IT! at&quot;</span> <span class="nv">i</span> <span class="s">&quot;th iteration:&quot;</span> <span class="p">(</span><span class="nb">first </span><span class="p">(</span><span class="nb">first </span><span class="nv">NewPop</span><span class="p">))</span> <span class="s">&quot;population=&quot;</span> <span class="p">(</span><span class="nb">count </span><span class="nv">NewPop</span><span class="p">)</span> <span class="s">&quot;\n\t=&gt;&quot;</span><span class="p">)</span>
+           <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">apply = </span><span class="p">(</span><span class="nb">map first </span><span class="p">(</span><span class="nb">take </span><span class="mi">5</span> <span class="nv">NewPop</span><span class="p">)))</span>
+             <span class="p">(</span><span class="nb">print </span><span class="s">&quot;LOCAL MIN! at&quot;</span> <span class="nv">i</span> <span class="s">&quot;th iteration, fitness value=&quot;</span> <span class="p">(</span><span class="nb">second </span><span class="p">(</span><span class="nb">first </span><span class="nv">NewPop</span><span class="p">))</span> <span class="s">&quot;population=&quot;</span> <span class="p">(</span><span class="nb">count </span><span class="nv">NewPop</span><span class="p">)</span> <span class="s">&quot;\n\t=&gt;&quot;</span><span class="p">)</span>
+             <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&gt; </span><span class="nv">i</span> <span class="mi">500</span><span class="p">)</span> 
+               <span class="p">(</span><span class="nb">print </span><span class="s">&quot;TIMEOUT! fitness value=&quot;</span> <span class="p">(</span><span class="nb">second </span><span class="p">(</span><span class="nb">first </span><span class="nv">NewPop</span><span class="p">))</span> <span class="s">&quot;population=&quot;</span> <span class="p">(</span><span class="nb">count </span><span class="nv">NewPop</span><span class="p">)</span> <span class="s">&quot;\n\t=&gt;&quot;</span><span class="p">)</span>
+               <span class="p">(</span><span class="nf">recur</span> <span class="p">(</span><span class="nb">inc </span><span class="nv">i</span><span class="p">)</span> <span class="p">(</span><span class="nf">Generation</span> <span class="nv">NewPop</span> <span class="nv">NUM-CHROMOSOMES</span> <span class="nv">XR</span> <span class="nv">MR</span> <span class="nv">false</span> <span class="nv">NUM-CHROMOSOMES</span><span class="p">))))))))))</span>
 
-; Functional Version of Main
-; (first (filter #(zero? (second (first %))) (iterate #(Generation % 0.2 0.2 false 10) (init-population p))))
-
-   </code></pre></div>
-
-<p><div align="right"> حل مساله 8 وزیر توسط الگوریتم ژنتیک</div></p>
+<span class="c1">; Functional Version of Main</span>
+<span class="c1">; (first (filter #(zero? (second (first %))) (iterate #(Generation % 0.2 0.2 false 10) (init-population p))))</span></code></pre></figure>
 
         </article>
       </div>
