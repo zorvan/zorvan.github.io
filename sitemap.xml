@@ -14,6 +14,39 @@
   
     
     <url>
+      <loc>/2015/11/21/PSO-minimization.html</loc>
+      
+        <lastmod>2015-11-21T03:08:00+03:30</lastmod>
+      
+      <changefreq>weekly</changefreq>
+      <priority>0.5</priority>
+    </url>
+    
+  
+    
+    <url>
+      <loc>/2015/11/21/IWO-minimization.html</loc>
+      
+        <lastmod>2015-11-21T03:08:00+03:30</lastmod>
+      
+      <changefreq>weekly</changefreq>
+      <priority>0.5</priority>
+    </url>
+    
+  
+    
+    <url>
+      <loc>/2015/11/21/GA-minimization.html</loc>
+      
+        <lastmod>2015-11-21T03:08:00+03:30</lastmod>
+      
+      <changefreq>weekly</changefreq>
+      <priority>0.5</priority>
+    </url>
+    
+  
+    
+    <url>
       <loc>/2015/11/21/Eight-Queens-Puzzle.html</loc>
       
         <lastmod>2015-11-21T03:08:00+03:30</lastmod>
@@ -28,7 +61,7 @@
     <url>
       <loc>/feed.xml</loc>
       
-        <lastmod>2016-01-30T03:51:37+03:30</lastmod>
+        <lastmod>2016-01-30T05:38:59+03:30</lastmod>
       
       <changefreq>weekly</changefreq>
       <priority>0.5</priority>
