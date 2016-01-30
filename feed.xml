@@ -5,8 +5,8 @@
     <description>Quantitative Research on Quality of Consciousness</description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 30 Jan 2016 05:38:59 +0330</pubDate>
-    <lastBuildDate>Sat, 30 Jan 2016 05:38:59 +0330</lastBuildDate>
+    <pubDate>Sat, 30 Jan 2016 09:37:00 +0330</pubDate>
+    <lastBuildDate>Sat, 30 Jan 2016 09:37:00 +0330</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
     
       <item>
@@ -342,6 +342,116 @@
         <category>AI</category>
         
         <category>Partice-Swarm</category>
+        
+        <category>Clojure</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Naive-Bayes Classification کلاسه بندی به روش بیزی</title>
+        <description>&lt;p&gt;Classification Using Naive Bayes in Clojure.
+&lt;div align=&quot;right&quot;&gt;کلاسه بندی به روش بیزی&lt;/div&gt;&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-clojure&quot; data-lang=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;ns &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;dt-classify.core&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:require&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;clj-ml.classifiers&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:as&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;mlc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:require&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;clj-ml.io&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:as&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;mlio&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:require&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;clj-ml.data&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:as&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;mld&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:require&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;clj-ml.utils&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:as&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;mlu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;def &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;dataset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;mlio/load-instances&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:arff&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;file:///e:/amin/University/classification/dt_classify/src/dt_classify/iris.arff&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;def &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;classifier&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;mlc/make-classifier&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:bayes&lt;/span&gt;  &lt;span class=&quot;ss&quot;&gt;:naive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;mld/dataset-set-class&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;dataset&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;; We set the class attribute for the loaded dataset&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;mlc/classifier-train&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;classifier&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;dataset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;def &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;evaluation&lt;/span&gt;   &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;mlc/classifier-evaluate&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;classifier&lt;/span&gt;  &lt;span class=&quot;ss&quot;&gt;:dataset&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;dataset&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;dataset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:kappa&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;evaluation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;classifier-evaluate&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;classifier&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:cross-validation&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;dataset&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;def &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;to-classify&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;mld/make-instance&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;dataset&lt;/span&gt;
+                                                      &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:class&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:Iris-versicolor&lt;/span&gt;,
+                                                      &lt;span class=&quot;ss&quot;&gt;:petalwidth&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.2&lt;/span&gt;,
+                                                      &lt;span class=&quot;ss&quot;&gt;:petallength&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.4&lt;/span&gt;,
+                                                      &lt;span class=&quot;ss&quot;&gt;:sepalwidth&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;3.5&lt;/span&gt;,
+                                                      &lt;span class=&quot;ss&quot;&gt;:sepallength&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;5.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}))&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;mlc/classifier-classify&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;classifier&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;to-classify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;mlc/classifier-label&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;classifier&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;to-classify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;mlu/serialize-to-file&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;classifier&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;./dstree.bin&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;(mlu/serialize-from-file classifier &amp;quot;./bayes.bin&amp;quot;)&lt;/span&gt;
+
+
+&lt;span class=&quot;c1&quot;&gt;;;  === Confusion Matrix ===&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    a  b  c   &amp;lt;-- classified as&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   50  0  0 |  a = Iris-setosa&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    0 48  2 |  b = Iris-versicolor&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    0  4 46 |  c = Iris-virginica&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;;;  === Summary ===&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;  Correctly Classified Instances         144               96      %&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;  Incorrectly Classified Instances         6                4      %&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;  Kappa statistic                          0.94  &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;  Mean absolute error                      0.0324&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;  Root mean squared error                  0.1495&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;  Relative absolute error                  7.2883 %&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;  Root relative squared error             31.7089 %&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;  Total Number of Instances              150     &lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;;;  {:average-cost 0.0, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   :incorrect 9.0, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   :roc-area {:Iris-setosa 0.98, :Iris-versicolor 0.9167, :Iris-virginica 0.9255}, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   :false-positive-rate {:Iris-setosa 0.0, :Iris-versicolor 0.06, :Iris-virginica 0.03}, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   :unclassified 0.0, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   :sf-entropy-gain -7293.762753414536, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   :kb-mean-information 1.437738214277917, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   :kb-information 215.66073214168753, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   :percentage-incorrect 6.0, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   :root-relative-squared-error 42.20690471123551, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   :precision {:Iris-setosa 1.0, :Iris-versicolor 0.8867924528301887, :Iris-virginica 0.9387755102040817}, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   :error-rate 0.06, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   :percentage-unclassified 0.0, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   :recall {:Iris-setosa 0.96, :Iris-versicolor 0.94, :Iris-virginica 0.92}, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   :correlation-coefficient {:nan &amp;quot;Can&amp;#39;t compute correlation coefficient: class is nominal!&amp;quot;}, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   :mean-absolute-error 0.04777552146809099, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   :kb-relative-information 13606.677258519503, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   :false-negative-rate {:Iris-setosa 0.04, :Iris-versicolor 0.06, :Iris-virginica 0.08}, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   :relative-absolute-error 10.7494923303205, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   :root-mean-squared-error 0.19896525689472688, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   :sf-mean-entropy-gain -48.62508502276357, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   :evaluation-object #object[weka.classifiers.Evaluation 0x1871c82 &amp;quot;weka.classifiers.Evaluation@1871c82&amp;quot;], &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   :kappa 0.9099999999999999, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   :f-measure {:Iris-setosa 0.9795918367346939, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   :Iris-versicolor 0.912621359223301, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   :Iris-virginica 0.9292929292929293}, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   :percentage-correct 94.0, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   :correct 141.0}&lt;/span&gt;
+
+
+&lt;span class=&quot;c1&quot;&gt;;; New Instance&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;;;  === Confusion Matrix ===&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    a  b  c   &amp;lt;-- classified as&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    50  0  0 |  a = Iris-setosa&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    0 47  3 |  b = Iris-versicolor&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    0  4 46 |  c = Iris-virginica&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;;;  === Summary ===&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;  Correctly Classified Instances          143               95.3333 %&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;  Incorrectly Classified Instances         7                4.6667 %&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;  Kappa statistic                          0.93  &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;  Mean absolute error                      0.0358&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;  Root mean squared error                  0.159 &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;  Relative absolute error                  8.0574 %&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;  Root relative squared error             33.7241 %&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;  Total Number of Instances               150  &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+</description>
+        <pubDate>Sat, 21 Nov 2015 03:08:00 +0330</pubDate>
+        <link>/2015/11/21/Naive-Bayes-Classify.html</link>
+        <guid isPermaLink="true">/2015/11/21/Naive-Bayes-Classify.html</guid>
+        
+        <category>ML</category>
+        
+        <category>Naive-Bayes</category>
         
         <category>Clojure</category>
         
@@ -924,6 +1034,130 @@
         <category>AI</category>
         
         <category>Genetic-Algorithms</category>
+        
+        <category>Clojure</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Decision-Tree Classification کلاسه بندی به روش درخت تصمیم</title>
+        <description>&lt;p&gt;Classification Using Decision Tree C4.5 in Clojure.
+&lt;div align=&quot;right&quot;&gt;  کلاسه بندی به روش درخت تصمیم&lt;/div&gt;&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-clojure&quot; data-lang=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;ns &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;dt-classify.core&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:require&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;clj-ml.classifiers&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:as&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;mlc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:require&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;clj-ml.io&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:as&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;mlio&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:require&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;clj-ml.data&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:as&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;mld&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:require&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;clj-ml.utils&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:as&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;mlu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;def &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;dataset&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;mlio/load-instances&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:arff&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;file:///e:/amin/University/classification/dt_classify/src/dt_classify/iris.arff&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;def &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;classifier&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;mlc/make-classifier&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:decission-tree&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:c45&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;mld/dataset-set-class&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;dataset&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;; We set the class attribute for the loaded dataset&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;mlc/classifier-train&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;classifier&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;dataset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;def &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;evaluation&lt;/span&gt;   &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;mlc/classifier-evaluate&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;classifier&lt;/span&gt;  &lt;span class=&quot;ss&quot;&gt;:dataset&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;dataset&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;dataset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:kappa&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;evaluation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;classifier-evaluate&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;classifier&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:cross-validation&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;dataset&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;def &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;to-classify&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;mld/make-instance&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;dataset&lt;/span&gt;
+                                                      &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:class&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:Iris-versicolor&lt;/span&gt;,
+                                                      &lt;span class=&quot;ss&quot;&gt;:petalwidth&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.2&lt;/span&gt;,
+                                                      &lt;span class=&quot;ss&quot;&gt;:petallength&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.4&lt;/span&gt;,
+                                                      &lt;span class=&quot;ss&quot;&gt;:sepalwidth&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;3.5&lt;/span&gt;,
+                                                      &lt;span class=&quot;ss&quot;&gt;:sepallength&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;5.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}))&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;mlc/classifier-classify&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;classifier&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;to-classify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;mlc/classifier-label&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;classifier&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;to-classify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;mlu/serialize-to-file&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;classifier&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;./dstree.bin&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;(mlu/serialize-from-file classifier &amp;quot;./dstree.bin&amp;quot;)&lt;/span&gt;
+
+
+&lt;span class=&quot;c1&quot;&gt;;;   #&amp;lt;J48 J48 pruned tree&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;        ------------------&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;;;        petalwidth &amp;lt;= 0.6: Iris-setosa (50.0)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;        petalwidth &amp;gt; 0.6&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;        |  petalwidth &amp;lt;= 1.7&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;        |  |   petallength &amp;lt;= 4.9: Iris-versicolor (48.0/1.0)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;        |  |   petallength &amp;gt; 4.9&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;        |  |   |   petalwidth &amp;lt;= 1.5: Iris-virginica (3.0)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;        |  |   |   petalwidth &amp;gt; 1.5: Iris-versicolor (3.0/1.0)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;        |  petalwidth &amp;gt; 1.7: Iris-virginica (46.0/1.0)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;;;        Number of Leaves  : 5&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;        Size of the tree  : 9&lt;/span&gt;
+
+
+&lt;span class=&quot;c1&quot;&gt;;;   === Confusion Matrix ===&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   a  b  c   &amp;lt;-- classified as&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   50  0  0 |  a = Iris-setosa&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   0 49  1 |  b = Iris-versicolor&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   0  2 48 |  c = Iris-virginica&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;;;   === Summary ===&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   Correctly Classified Instances         147               98      %&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   Incorrectly Classified Instances         3                2      %&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   Kappa statistic                          0.97  &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   Mean absolute error                      0.0233&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   Root mean squared error                  0.108 &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   Relative absolute error                  5.2482 %&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   Root relative squared error             22.9089 %&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;   Total Number of Instances              150  &lt;/span&gt;
+
+
+&lt;span class=&quot;c1&quot;&gt;;;   {:average-cost 0.0, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    :incorrect 7.0, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    :roc-area {:Iris-setosa 0.99, :Iris-versicolor 0.9354, :Iris-virginica 0.9387}, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    :false-positive-rate {:Iris-setosa 0.0, :Iris-versicolor 0.04, :Iris-virginica 0.03}, &lt;/span&gt;
+ &lt;span class=&quot;c1&quot;&gt;;;   :unclassified 0.0, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    :sf-entropy-gain -5146.364579400504, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    :kb-mean-information 1.4626583743906623, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    :kb-information 219.39875615859933, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    :percentage-incorrect 4.666666666666667, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    :root-relative-squared-error 37.41052935394789, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    :precision {:Iris-setosa 1.0, :Iris-versicolor 0.9215686274509803, :Iris-virginica 0.94}, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    :error-rate 0.04666666666666667, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    :percentage-unclassified 0.0, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    :recall {:Iris-setosa 0.98, :Iris-versicolor 0.94, :Iris-virginica 0.94}, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    :correlation-coefficient {:nan &amp;quot;Can&amp;#39;t compute correlation coefficient: class is nominal!&amp;quot;}, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    :mean-absolute-error 0.04055845011109013, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    :kb-relative-information 13842.520315702935, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    :false-negative-rate {:Iris-setosa 0.02, :Iris-versicolor 0.06, :Iris-virginica 0.06}, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    :relative-absolute-error 9.1256512749953, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    :root-mean-squared-error 0.1763549266263661, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    :sf-mean-entropy-gain -34.309097196003364, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    :evaluation-object #object[weka.classifiers.Evaluation 0xdc55cf &amp;quot;weka.classifiers.Evaluation@dc55cf&amp;quot;], &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    :kappa 0.93, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    :f-measure {:Iris-setosa 0.98989898989899, :Iris-versicolor 0.9306930693069307, :Iris-virginica 0.94}, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    :percentage-correct 95.33333333333333, &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    :correct 143.0}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;;; New Instance&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;;;  === Confusion Matrix ===&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    a  b  c   &amp;lt;-- classified as&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    50  0  0 |  a = Iris-setosa&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    0 47  3 |  b = Iris-versicolor&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;    0  4 46 |  c = Iris-virginica&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;;;  === Summary ===&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;  Correctly Classified Instances          143               95.3333 %&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;  Incorrectly Classified Instances         7                4.6667 %&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;  Kappa statistic                          0.93  &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;  Mean absolute error                      0.0358&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;  Root mean squared error                  0.159 &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;  Relative absolute error                  8.0574 %&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;  Root relative squared error             33.7241 %&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;;;  Total Number of Instances               150  &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+</description>
+        <pubDate>Sat, 21 Nov 2015 03:08:00 +0330</pubDate>
+        <link>/2015/11/21/Decision-Tree-Classify.html</link>
+        <guid isPermaLink="true">/2015/11/21/Decision-Tree-Classify.html</guid>
+        
+        <category>ML</category>
+        
+        <category>Decision-Tree</category>
         
         <category>Clojure</category>
         

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+    content="Naive-Bayes Classification کلاسه بندی به روش بیزی Classification Using Naive Bayes in Clojure.
+کلاسه بندی به روش بیزی
+ Quantitative Research on Quality of Consciousness">
+  <title> Naive-Bayes Classification کلاسه بندی به روش بیزی - Narrative Consciousness </title>
+
+  <!-- stylesheets -->
+  <link media="all" href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+  <link media="all" href="http://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <link media="all" rel="stylesheet" href="/assets/css/site.css">
+  <link media="all" rel="stylesheet" href="/assets/css/syntax.css">
+  
+
+</head>
+
+
+<body>
+  <header>
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a id="site-title" class="navbar-brand" href="/">
+          <img class="pull-left img-responsive" src="/images/logo/logo.png"> 
+          <span class="name-holder">Narrative Consciousness</span>
+        </a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="navbar">
+
+        <ul id="main-menu" class="nav navbar-nav navbar-right">
+
+          
+            <li><a href="/">
+              <i class="fa fa-home"></i> Home</a>
+            </li>
+          
+            <li><a href="/surf/">
+              <i class="fa fa-compass"></i> Surf</a>
+            </li>
+          
+            <li><a href="/art/">
+              <i class="fa fa-camera"></i> Art</a>
+            </li>
+          
+            <li><a href="/about/">
+              <i class="fa fa-info-circle"></i> About Me</a>
+            </li>
+          
+
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+  </nav>
+
+</header>
+
+  
+  <script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
+      <div class="page">
+
+        <header class="page-header">
+          <h3 class="page-title"><a href="/2015/11/21/Naive-Bayes-Classify.html">Naive-Bayes Classification کلاسه بندی به روش بیزی</a></h3>
+          <div class="post-metadata">
+            <div> <i class="fa fa-calendar"></i>
+              <time>
+                Saturday, November 21, 2015
+              </time>
+            </div>
+            <div> <i class="fa fa-tag"></i>
+                
+                  <span class="label label-tag">ML</span>
+                
+                  <span class="label label-tag">Naive-Bayes</span>
+                
+                  <span class="label label-tag">Clojure</span>
+                
+            </div>
+          </div>
+
+        </header>
+
+        <article class="page-content">
+          <p>Classification Using Naive Bayes in Clojure.
+<div align="right">کلاسه بندی به روش بیزی</div></p>
+
+<!--more-->
+
+<figure class="highlight"><pre><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">ns </span><span class="nv">dt-classify.core</span>
+    <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">clj-ml.classifiers</span> <span class="ss">:as</span> <span class="nv">mlc</span><span class="p">])</span>
+        <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">clj-ml.io</span> <span class="ss">:as</span> <span class="nv">mlio</span><span class="p">])</span>
+        <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">clj-ml.data</span> <span class="ss">:as</span> <span class="nv">mld</span><span class="p">])</span>
+        <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">clj-ml.utils</span> <span class="ss">:as</span> <span class="nv">mlu</span><span class="p">]))</span>
+
+<span class="p">(</span><span class="k">def </span><span class="nv">dataset</span> <span class="p">(</span><span class="nf">mlio/load-instances</span> <span class="ss">:arff</span> <span class="s">&quot;file:///e:/amin/University/classification/dt_classify/src/dt_classify/iris.arff&quot;</span><span class="p">))</span>
+
+<span class="p">(</span><span class="k">def </span><span class="nv">classifier</span> <span class="p">(</span><span class="nf">mlc/make-classifier</span> <span class="ss">:bayes</span>  <span class="ss">:naive</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">mld/dataset-set-class</span> <span class="nv">dataset</span> <span class="mi">4</span><span class="p">)</span> <span class="c1">; We set the class attribute for the loaded dataset</span>
+<span class="p">(</span><span class="nf">mlc/classifier-train</span> <span class="nv">classifier</span> <span class="nv">dataset</span><span class="p">)</span>
+<span class="p">(</span><span class="k">def </span><span class="nv">evaluation</span>   <span class="p">(</span><span class="nf">mlc/classifier-evaluate</span> <span class="nv">classifier</span>  <span class="ss">:dataset</span> <span class="nv">dataset</span> <span class="nv">dataset</span><span class="p">))</span>
+<span class="p">(</span><span class="ss">:kappa</span> <span class="nv">evaluation</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">classifier-evaluate</span> <span class="nv">classifier</span> <span class="ss">:cross-validation</span> <span class="nv">dataset</span> <span class="mi">10</span><span class="p">)</span>
+<span class="p">(</span><span class="k">def </span><span class="nv">to-classify</span> <span class="p">(</span><span class="nf">mld/make-instance</span> <span class="nv">dataset</span>
+                                                      <span class="p">{</span><span class="ss">:class</span> <span class="ss">:Iris-versicolor</span>,
+                                                      <span class="ss">:petalwidth</span> <span class="mf">0.2</span>,
+                                                      <span class="ss">:petallength</span> <span class="mf">1.4</span>,
+                                                      <span class="ss">:sepalwidth</span> <span class="mf">3.5</span>,
+                                                      <span class="ss">:sepallength</span> <span class="mf">5.1</span><span class="p">}))</span>
+<span class="p">(</span><span class="nf">mlc/classifier-classify</span> <span class="nv">classifier</span> <span class="nv">to-classify</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">mlc/classifier-label</span> <span class="nv">classifier</span> <span class="nv">to-classify</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">mlu/serialize-to-file</span> <span class="nv">classifier</span> <span class="s">&quot;./dstree.bin&quot;</span><span class="p">)</span>
+<span class="c1">;(mlu/serialize-from-file classifier &quot;./bayes.bin&quot;)</span>
+
+
+<span class="c1">;;  === Confusion Matrix ===</span>
+<span class="c1">;;    a  b  c   &lt;-- classified as</span>
+<span class="c1">;;   50  0  0 |  a = Iris-setosa</span>
+<span class="c1">;;    0 48  2 |  b = Iris-versicolor</span>
+<span class="c1">;;    0  4 46 |  c = Iris-virginica</span>
+
+<span class="c1">;;  === Summary ===</span>
+<span class="c1">;;  Correctly Classified Instances         144               96      %</span>
+<span class="c1">;;  Incorrectly Classified Instances         6                4      %</span>
+<span class="c1">;;  Kappa statistic                          0.94  </span>
+<span class="c1">;;  Mean absolute error                      0.0324</span>
+<span class="c1">;;  Root mean squared error                  0.1495</span>
+<span class="c1">;;  Relative absolute error                  7.2883 %</span>
+<span class="c1">;;  Root relative squared error             31.7089 %</span>
+<span class="c1">;;  Total Number of Instances              150     </span>
+
+<span class="c1">;;  {:average-cost 0.0, </span>
+<span class="c1">;;   :incorrect 9.0, </span>
+<span class="c1">;;   :roc-area {:Iris-setosa 0.98, :Iris-versicolor 0.9167, :Iris-virginica 0.9255}, </span>
+<span class="c1">;;   :false-positive-rate {:Iris-setosa 0.0, :Iris-versicolor 0.06, :Iris-virginica 0.03}, </span>
+<span class="c1">;;   :unclassified 0.0, </span>
+<span class="c1">;;   :sf-entropy-gain -7293.762753414536, </span>
+<span class="c1">;;   :kb-mean-information 1.437738214277917, </span>
+<span class="c1">;;   :kb-information 215.66073214168753, </span>
+<span class="c1">;;   :percentage-incorrect 6.0, </span>
+<span class="c1">;;   :root-relative-squared-error 42.20690471123551, </span>
+<span class="c1">;;   :precision {:Iris-setosa 1.0, :Iris-versicolor 0.8867924528301887, :Iris-virginica 0.9387755102040817}, </span>
+<span class="c1">;;   :error-rate 0.06, </span>
+<span class="c1">;;   :percentage-unclassified 0.0, </span>
+<span class="c1">;;   :recall {:Iris-setosa 0.96, :Iris-versicolor 0.94, :Iris-virginica 0.92}, </span>
+<span class="c1">;;   :correlation-coefficient {:nan &quot;Can&#39;t compute correlation coefficient: class is nominal!&quot;}, </span>
+<span class="c1">;;   :mean-absolute-error 0.04777552146809099, </span>
+<span class="c1">;;   :kb-relative-information 13606.677258519503, </span>
+<span class="c1">;;   :false-negative-rate {:Iris-setosa 0.04, :Iris-versicolor 0.06, :Iris-virginica 0.08}, </span>
+<span class="c1">;;   :relative-absolute-error 10.7494923303205, </span>
+<span class="c1">;;   :root-mean-squared-error 0.19896525689472688, </span>
+<span class="c1">;;   :sf-mean-entropy-gain -48.62508502276357, </span>
+<span class="c1">;;   :evaluation-object #object[weka.classifiers.Evaluation 0x1871c82 &quot;weka.classifiers.Evaluation@1871c82&quot;], </span>
+<span class="c1">;;   :kappa 0.9099999999999999, </span>
+<span class="c1">;;   :f-measure {:Iris-setosa 0.9795918367346939, </span>
+<span class="c1">;;   :Iris-versicolor 0.912621359223301, </span>
+<span class="c1">;;   :Iris-virginica 0.9292929292929293}, </span>
+<span class="c1">;;   :percentage-correct 94.0, </span>
+<span class="c1">;;   :correct 141.0}</span>
+
+
+<span class="c1">;; New Instance</span>
+
+<span class="c1">;;  === Confusion Matrix ===</span>
+<span class="c1">;;    a  b  c   &lt;-- classified as</span>
+<span class="c1">;;    50  0  0 |  a = Iris-setosa</span>
+<span class="c1">;;    0 47  3 |  b = Iris-versicolor</span>
+<span class="c1">;;    0  4 46 |  c = Iris-virginica</span>
+
+<span class="c1">;;  === Summary ===</span>
+<span class="c1">;;  Correctly Classified Instances          143               95.3333 %</span>
+<span class="c1">;;  Incorrectly Classified Instances         7                4.6667 %</span>
+<span class="c1">;;  Kappa statistic                          0.93  </span>
+<span class="c1">;;  Mean absolute error                      0.0358</span>
+<span class="c1">;;  Root mean squared error                  0.159 </span>
+<span class="c1">;;  Relative absolute error                  8.0574 %</span>
+<span class="c1">;;  Root relative squared error             33.7241 %</span>
+<span class="c1">;;  Total Number of Instances               150  </span></code></pre></figure>
+
+        </article>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  
+
+<footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-offset-3 col-lg-6">
+            <div class="row">
+              <div class="col-xs-12 text-center">
+                <small>&copy; Ritamin, 2015</small>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <!--<script src="/assets/js/prism.js"></script> -->
+  <script src="/assets/js/site.js"></script>
+
+</body>
+
+</html>
