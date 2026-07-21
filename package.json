@@ -1,0 +1,16 @@
+{
+  "name": "zorvan.github.io",
+  "version": "2.0.0",
+  "description": "Notebook of a nomadic relationarch — cryptography, systems, and relational critical engineering.",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "dev": "eleventy --serve --quiet",
+    "build": "eleventy",
+    "clean": "rm -rf _site"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "@11ty/eleventy-fetch": "^5.0.0"
+  }
+}

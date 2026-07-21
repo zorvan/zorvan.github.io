@@ -1,0 +1,38 @@
+---
+layout: base.njk
+title: Work
+permalink: /work/
+description: Selected work by zorvan — verifiable secret sharing, side-channel analysis, client-side validation, topological tools for thought.
+---
+<div class="page-intro">
+  <p class="kicker">Repositories</p>
+  <h1>Work</h1>
+  <p>Grouped by register rather than by date. Everything links to source.</p>
+</div>
+
+{%- for group in projects.groups %}
+<section class="group">
+  <div class="section-head">
+    <span class="idx">{{ loop.index | folio }}</span>
+    <h2>{{ group.title }}</h2>
+  </div>
+  <p class="gnote">{{ group.note }}</p>
+  <div class="cards">
+    {%- for item in group.items %}
+    <a class="card" href="{{ item.url }}" rel="noopener">
+      <div class="cname">{{ item.name }}</div>
+      <p class="cdesc">{{ item.desc }}</p>
+      <span class="clang">{{ item.lang }}</span>
+    </a>
+    {%- endfor %}
+  </div>
+</section>
+{%- endfor %}
+
+<section class="group">
+  <p class="muted">
+    More lives at <a href="https://github.com/zorvan">github.com/zorvan</a> and
+    <a href="https://github.com/diewan">github.com/diewan</a>. The 2015 origin — an
+    N-Queens solver in Clojure — is kept in the <a href="/archive/">archive</a>.
+  </p>
+</section>

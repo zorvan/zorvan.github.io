@@ -1,0 +1,41 @@
+---
+layout: base.njk
+title: Writing
+permalink: /writing/
+description: Essays by zorvan — cryptography, coordination, accountability, and the philosophy of delegated action. Synced from Medium.
+---
+<div class="page-intro">
+  <p class="kicker">The notebook</p>
+  <h1>Writing</h1>
+  <p>
+    Essays where the cryptography meets the critique — on delegated action, coordination,
+    portable proof, and the impossibility of writing. Kept on Medium; mirrored here as it appears.
+  </p>
+</div>
+
+{% if writing.length %}
+<ol class="entries">
+  {%- for post in writing %}
+  <li class="entry">
+    <div class="meta">
+      <span class="n">№ {{ (writing.length - loop.index0) | folio }}</span><br>
+      <time datetime="{{ post.date | isoDate }}">{{ post.date | readableDate }}</time>
+    </div>
+    <div>
+      <h3><a href="{{ post.url }}" rel="noopener">{{ post.title }}</a></h3>
+      {% if post.subtitle %}<p class="sub">{{ post.subtitle }}</p>{% endif %}
+      {% if post.excerpt %}<p class="ex">{{ post.excerpt }}</p>{% endif %}
+      {%- if post.tags.length %}
+      <p class="tags">{% for t in post.tags %}<span class="tag">{{ t }}</span>{% endfor %}</p>
+      {%- endif %}
+    </div>
+  </li>
+  {%- endfor %}
+</ol>
+<p style="margin-top:2.4rem"><a class="more" href="https://medium.com/@zorvan">continue on Medium</a></p>
+{% else %}
+<p class="muted">
+  The feed could not be reached at build time. Read everything directly at
+  <a href="https://medium.com/@zorvan">medium.com/@zorvan</a>.
+</p>
+{% endif %}

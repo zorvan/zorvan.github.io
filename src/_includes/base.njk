@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="{{ site.lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if title %}{{ title }} · {{ site.handle }}{% else %}{{ site.handle }} — {{ site.tagline }}{% endif %}</title>
+  <meta name="description" content="{{ description or site.description }}">
+  <meta name="author" content="{{ site.handle }}">
+
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+  <link rel="alternate" type="application/atom+xml" title="Writing by {{ site.handle }}" href="https://medium.com/feed/@zorvan">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ site.handle }}">
+  <meta property="og:title" content="{% if title %}{{ title }}{% else %}{{ site.handle }} — {{ site.tagline }}{% endif %}">
+  <meta property="og:description" content="{{ description or site.description }}">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <meta name="twitter:card" content="summary">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='5' fill='%231d2b36'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='21' fill='%23d9a15f' text-anchor='middle'%3Ez%3C/text%3E%3C/svg%3E">
+  <meta name="theme-color" content="#dee4e8" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1d2b36" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="/assets/css/site.css">
+
+  <script>
+    // Restore theme choice before paint to avoid a flash.
+    (function () {
+      try {
+        var t = localStorage.getItem("theme");
+        if (t) document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="masthead">
+    <div class="wrap masthead-inner">
+      <a class="brand" href="/">
+        <span class="brand-mark">{{ site.handle }}</span>
+        <span class="brand-sub">{{ site.tagline }}</span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        {%- for item in site.nav %}
+        <a href="{{ item.url }}"{% if page.url == item.url %} aria-current="page"{% endif %}>{{ item.title }}</a>
+        {%- endfor %}
+        <button class="theme-toggle" type="button" aria-label="Toggle light or dark" title="Toggle theme">◐</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    {{ content | safe }}
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div class="footer-links">
+        {%- for link in site.links %}
+        <a href="{{ link.url }}" rel="me noopener">{{ link.title }} <span class="muted">/{{ link.handle }}</span></a>
+        {%- endfor %}
+      </div>
+      <div class="colophon-line">
+        <span>{{ site.handle }}</span>
+        <span class="muted">— {{ site.role | lower }}</span>
+      </div>
+      <div class="build" title="This deploy's fingerprint. Authority stated, action proven.">
+        build <span class="hash">0x{{ site.build.hash }}</span>
+        · {{ site.build.date | isoDate }}
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/site.js" defer></script>
+</body>
+</html>

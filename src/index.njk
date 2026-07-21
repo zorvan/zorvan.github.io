@@ -1,0 +1,101 @@
+---
+layout: base.njk
+eleventyNavigation:
+  key: Index
+---
+<section class="hero">
+  <p class="overline">Cryptography · confidential computing · coordination systems · relational critical engineering</p>
+  <h1 class="hero-name">zorvan</h1>
+  <p class="lede">{{ site.tagline }}.</p>
+  <p class="creed">
+    I engineer systems where people can coordinate and answer for their actions
+    <strong>without being surveilled, modelled, or steered</strong> — cryptography and confidential
+    computing on one side; relational philosophy, critique, and an art of the in-between on the
+    other. A cryptographer by trade, a relational thinker by disposition.
+  </p>
+  <p class="chips" aria-label="Interests">
+    {%- for kw in interests.highlights %}<span class="tag">{{ kw }}</span>{% endfor %}
+  </p>
+  <p class="collab">
+    Building <a href="/diewan/">Diewan</a> and <a href="/zwischen/">Zwischen</a> now, and looking
+    for people who think in relations to build with. <a class="more" href="/colophon/">who I am</a>
+  </p>
+</section>
+
+<section class="index-grid">
+  <div class="section-head">
+    <span class="idx">01</span>
+    <h2>From the notebook</h2>
+    <span class="aside">essays, synced from Medium</span>
+  </div>
+  {% if writing.length %}
+  <ol class="entries">
+    {%- for post in writing | limit(5) %}
+    <li class="entry">
+      <div class="meta">
+        <span class="n">{{ loop.index | folio }}</span><br>
+        <time datetime="{{ post.date | isoDate }}">{{ post.date | readableDate }}</time>
+      </div>
+      <div>
+        <h3><a href="{{ post.url }}" rel="noopener">{{ post.title }}</a></h3>
+        {% if post.subtitle %}<p class="sub">{{ post.subtitle }}</p>{% endif %}
+        {% if post.excerpt %}<p class="ex">{{ post.excerpt }}</p>{% endif %}
+      </div>
+    </li>
+    {%- endfor %}
+  </ol>
+  <p style="margin-top:1.6rem"><a class="more" href="/writing/">the whole notebook</a></p>
+  {% else %}
+  <p class="muted">The feed is quiet at the moment. Read directly at <a href="https://medium.com/@zorvan">medium.com/@zorvan</a>.</p>
+  {% endif %}
+</section>
+
+<section class="index-grid">
+  <div class="section-head">
+    <span class="idx">02</span>
+    <h2>Selected work</h2>
+    <span class="aside">blockchain · confidential computing · topology</span>
+  </div>
+  <div class="cards">
+    {%- for item in projects.featured %}
+    <a class="card" href="{{ item.url }}" rel="noopener">
+      <div class="cname">{{ item.name }}</div>
+      <p class="cdesc">{{ item.desc }}</p>
+      <span class="clang">{{ item.lang }}</span>
+    </a>
+    {%- endfor %}
+  </div>
+  <p style="margin-top:1.6rem"><a class="more" href="/work/">all of the work</a></p>
+</section>
+
+<section class="index-grid">
+  <div class="section-head">
+    <span class="idx">03</span>
+    <h2>Standing projects</h2>
+    <span class="aside">infrastructure for collective life</span>
+  </div>
+  <p class="gnote" style="max-width:60ch">
+    Two halves of one relational thesis — that people can coordinate and be held accountable
+    <em>without</em> being modelled, predicted, or steered.
+  </p>
+  <div class="cards">
+    <a class="card" href="/diewan/">
+      <div class="cname">Diewan</div>
+      <p class="cdesc">
+        Infrastructure for an <strong>accountability economy</strong>: every consequential action
+        travels with portable, verifiable proof of the mandate that permitted it. Authority stated,
+        action proven, responsibility preserved.
+      </p>
+      <span class="clang">accountability · client-side validation</span>
+    </a>
+    <a class="card" href="/zwischen/">
+      <div class="cname">Zwischen</div>
+      <p class="cdesc">
+        A <strong>coordination system for small groups</strong> that shapes how people relate to
+        what is forming — through perception, not prediction; carrying memory from one gathering to
+        the next, without modelling users or steering outcomes.
+      </p>
+      <span class="clang">coordination · the in-between</span>
+    </a>
+  </div>
+</section>

@@ -1,0 +1,202 @@
+---
+layout: base.njk
+title: Colophon
+permalink: /colophon/
+description: zorvan — cryptography & confidential-computing engineer and relational thinker. Interests, ongoing projects (Diewan, Zwischen, Sarv-Sadi), capabilities, and background.
+---
+<div class="page-intro">
+  <p class="kicker">Profile</p>
+  <h1>Who is keeping this notebook</h1>
+</div>
+
+<div class="prose" style="margin-bottom:2.6rem">
+  <p>
+    <strong>zorvan</strong> — a cryptography and confidential-computing engineer, and a relational
+    thinker. Eighteen-plus years across cryptographic protocol design, confidential hardware
+    execution, and systems architecture; lately, coordination systems and the philosophy underneath
+    them. The handle is older than any title; I sign my essays <em>a nomadic relationarch</em> —
+    someone who studies the relations that action leaves behind, and refuses to let them be erased.
+  </p>
+  <p>
+    This page is honest signal, not a pitch. If you work where cryptography meets coordination — or
+    you think in relations — I'd like to build with you.
+  </p>
+</div>
+
+<section>
+  <div class="section-head"><span class="idx">01</span><h2>Interests</h2></div>
+  <dl class="caps">
+    {%- for g in interests.groups %}
+    <div class="cap-row">
+      <dt>{{ g.label }}</dt>
+      <dd class="chips">{% for it in g.items %}<span class="tag">{{ it }}</span>{% endfor %}</dd>
+    </div>
+    {%- endfor %}
+  </dl>
+</section>
+
+<section>
+  <div class="section-head"><span class="idx">02</span><h2>Ongoing</h2></div>
+  <div class="cards">
+    <a class="card" href="/diewan/">
+      <div class="cname">Diewan</div>
+      <p class="cdesc">Infrastructure for an accountability economy — portable, verifiable proof that consequential actions were authorized.</p>
+      <span class="clang">accountability · client-side validation</span>
+    </a>
+    <a class="card" href="/zwischen/">
+      <div class="cname">Zwischen</div>
+      <p class="cdesc">A coordination system for small groups — perception, not prediction; carrying memory forward without modelling users.</p>
+      <span class="clang">coordination · Python</span>
+    </a>
+    <a class="card" href="/writing/">
+      <div class="cname">Writing &amp; relational theory</div>
+      <p class="cdesc">Essays on delegated action and coordination, and an ongoing relational program — a relational logic and a mathematics of complexity matching.</p>
+      <span class="clang">essays · relational thought</span>
+    </a>
+    <a class="card" href="https://www.instagram.com/sarvesadi" rel="noopener">
+      <div class="cname">Sarv-Sadi</div>
+      <p class="cdesc">An art practice around Persian calligraphy and 3D typography — writing in three dimensions, the in-between made visible.</p>
+      <span class="clang">calligraphy · 3D typography</span>
+    </a>
+  </div>
+</section>
+
+<section class="stats-band" aria-label="At a glance">
+  <div class="stat"><span class="num">18+</span><span class="label">years, systems &amp; cryptography</span></div>
+  <div class="stat"><span class="num">50k</span><span class="label">TPS delivered on an L1</span></div>
+  <div class="stat"><span class="num">1M+</span><span class="label">assets secured in enclaves</span></div>
+  <div class="stat"><span class="num">300+</span><span class="label">engineers trained</span></div>
+</section>
+
+<section>
+  <div class="section-head"><span class="idx">03</span><h2>Capabilities</h2></div>
+  <dl class="caps">
+    <div class="cap-row">
+      <dt>Cryptographic protocols</dt>
+      <dd>ZKP (SNARKs / STARKs), SMPC, VSS, DKG, threshold signatures, FHE, indistinguishability obfuscation.</dd>
+    </div>
+    <div class="cap-row">
+      <dt>Confidential computing</dt>
+      <dd>Intel SGX / TDX, AMD SEV, GPU TEE, enclave networks, MPC key management, remote attestation.</dd>
+    </div>
+    <div class="cap-row">
+      <dt>Blockchain architecture</dt>
+      <dd>L1 / L2 design, Bitcoin · Ethereum · Solana · Aptos · Sui, Substrate, consensus work, DeFi primitives; 10k–50k TPS.</dd>
+    </div>
+    <div class="cap-row">
+      <dt>Hardware &amp; embedded</dt>
+      <dd>SoC FPGA, TRNG design, finite-field arithmetic, ECC in assembly, TETRA / BTS DSP, hardware penetration testing.</dd>
+    </div>
+    <div class="cap-row">
+      <dt>High-performance systems</dt>
+      <dd>Distributed HPC (100+ nodes), Rust, C / C++, assembly, concurrent systems, secure deployment (K8s, Terraform, Ansible).</dd>
+    </div>
+    <div class="cap-row">
+      <dt>Applied ML</dt>
+      <dd>ZKML, confidential LLM inference, multivariate time-series, real-time IoT / sensor pipelines.</dd>
+    </div>
+  </dl>
+</section>
+
+<section>
+  <div class="section-head"><span class="idx">04</span><h2>Selected work</h2></div>
+  <ul class="worklist">
+    <li>
+      <span class="w-name">Fortress</span> — a 13-layer blockchain security protocol spanning
+      hardware, off-chain components, and cryptographic primitives.
+    </li>
+    <li>
+      <span class="w-name">Ternoa SGX enclaves</span> — a TEE enclave server (Intel SGX + Gramine)
+      for the Secret-NFT protocol: remote attestation, P2P key sync, and on-chain key management.
+      <a class="more" href="https://github.com/capsule-corp-ternoa/ternoa-enclaves" rel="noopener">source</a>
+    </li>
+    <li>
+      <span class="w-name">Confidential order book</span> — a matching engine that removes
+      front-running, cutting information leakage ~90% versus public-mempool models.
+    </li>
+    <li>
+      <span class="w-name">Enclave-sealed wallet</span> — embedded a complete wallet codebase inside
+      an Intel SGX enclave via low-level driver work.
+    </li>
+    <li>
+      <span class="w-name">Distributed HPC cluster</span> — architect of a 100+-node cluster for
+      cryptographic computation; custom C++/MPI provisioning, scheduling, and health monitoring.
+    </li>
+    <li>
+      <span class="w-name">ECC in silicon</span> — key-agreement in assembly and hardware logic
+      reaching sub-100ms on low-power embedded targets.
+    </li>
+    <li>
+      <span class="w-name">TETRA stack</span> — a full trunked-radio BTS stack and physical-layer DSP
+      (π/4-DQPSK) on SoC FPGA and TI DSP platforms.
+    </li>
+  </ul>
+  <p class="muted" style="margin-top:1rem">
+    Public code — the <a href="https://github.com/capsule-corp-ternoa/ternoa-enclaves" rel="noopener">Ternoa
+    SGX enclaves</a>, verifiable secret sharing, and <a href="/work/">simplicial-complex</a> (topological
+    knowledge discovery) — lives under <a href="/work/">Work</a>.
+  </p>
+</section>
+
+<section>
+  <div class="section-head"><span class="idx">05</span><h2>Trajectory</h2></div>
+  <ul class="cv">
+    <li><span class="role">Senior Confidential-AI Engineer</span> <span class="org">Zeroth Research</span> <span class="when">2026 —</span><br><span class="cv-note">ZKML, TEE + ZK proof-of-ownership and watermarking for confidential LLMs.</span></li>
+    <li><span class="role">Lead Cryptographer &amp; Blockchain Architect</span> <span class="org">Whiterock-Fi</span> <span class="when">2025–26</span><br><span class="cv-note">Confidential order book; Hotstuff L1 at 20–50k TPS, sub-500ms finality; RWA tokenization.</span></li>
+    <li><span class="role">Senior Cryptographer, Confidential Computing</span> <span class="org">Fleek</span> <span class="when">2024–25</span><br><span class="cv-note">SGX-sealed wallet; Intel TDX confidential AI inference; confidential-DNS audit.</span></li>
+    <li><span class="role">Senior Cryptographer, Confidential Computing</span> <span class="org">Ternoa</span> <span class="when">2022–24</span><br><span class="cv-note">SGX NFT key management, &gt;99.99% availability; MPC isolation; SNARK/STARK cost reduction.</span></li>
+    <li><span class="role">Senior Cryptography Developer</span> <span class="org">Mintlayer</span> <span class="when">2021–22</span><br><span class="cv-note">Programmable pools bringing DeFi to Bitcoin's UTXO model on Substrate; Rust RPC from first principles.</span></li>
+    <li><span class="role">Co-Founder &amp; CTO</span> <span class="org">Xarv</span> <span class="when">2019 —</span><br><span class="cv-note">Blockchain confidential-document systems for national notary/forensic bodies; Hyperledger IoT supply chain.</span></li>
+    <li><span class="role">Research Lead, Cryptography &amp; Hardware Security</span> <span class="org">Independent</span> <span class="when">2010–18</span><br><span class="cv-note">The distributed HPC cluster, Fortress, ECC-in-assembly, TETRA, and 30+ secure-embedded projects.</span></li>
+  </ul>
+</section>
+
+<section>
+  <div class="section-head"><span class="idx">06</span><h2>Formation</h2></div>
+  <ul class="cv edu">
+    <li><span class="role">M.Sc. Computer Science — Theory of Computation</span> <span class="org">Tehran Polytechnic</span> <span class="when">2017</span></li>
+    <li><span class="role">M.Sc. Pure Mathematics</span> <span class="org">Sharif University of Technology</span> <span class="when">2009</span></li>
+    <li><span class="role">B.Sc. Electronics Engineering</span> <span class="org">Shahid Beheshti University</span> <span class="when">2004</span></li>
+  </ul>
+  <p class="muted" style="margin-top:.8rem">
+    Languages — English (professional), Persian (native), Arabic (intermediate), German &amp; French (learning).
+  </p>
+</section>
+
+<div class="prose">
+  <h2>Relational critical engineering</h2>
+  <p>
+    I call the practice <em>relational critical engineering</em>. Engineering, because it has to
+    compile and hold under adversaries. Critical, because a system is never only technical — it
+    encodes who may act, who must prove, and who is left answerable. Relational, because the unit
+    that matters is not the object but the bond between people that the object mediates. Everything
+    above is in service of it.
+  </p>
+
+  <h2>Elsewhere</h2>
+  <ul>
+    {%- for link in site.links %}
+    <li><a href="{{ link.url }}" rel="me noopener">{{ link.title }}</a> — <span class="muted">/{{ link.handle }}</span></li>
+    {%- endfor %}
+    <li>Correspondence — best reached through <a href="https://www.linkedin.com/in/xorvan" rel="me noopener">LinkedIn</a>.</li>
+  </ul>
+
+  <hr>
+
+  <h2>How this notebook is made</h2>
+  <p>
+    Built with <a href="https://www.11ty.dev/">Eleventy</a>, hand-set in a native serif stack —
+    no web fonts, no external requests, no trackers. Essays are pulled from the Medium feed at
+    build time; the work list and this page are plain data. The whole thing is a few kilobytes of
+    HTML over a warm sheet of CSS. Source lives at
+    <a href="https://github.com/zorvan/zorvan.github.io">github.com/zorvan/zorvan.github.io</a>.
+  </p>
+  <p class="muted">
+    Every deploy stamps a short fingerprint in the footer — a small habit borrowed from the
+    subject matter. Authority stated, action proven.
+  </p>
+  <p class="muted">
+    The previous decade of this site — a Jekyll weblog called <em>Narrative Consciousness</em> —
+    rests in the <a href="/archive/">archive</a>.
+  </p>
+</div>

@@ -1,0 +1,79 @@
+---
+layout: base.njk
+title: Zwischen
+permalink: /zwischen/
+description: Zwischen — a coordination system for small groups that mediates through perception, not prediction; carrying memory from one gathering to the next without modelling users or steering outcomes.
+---
+<div class="page-intro">
+  <p class="kicker">A standing project · github.com/zorvan/Zwischen</p>
+  <h1>Zwischen</h1>
+  <p>Coordination for collective life — mediated through perception, not prediction.</p>
+</div>
+
+<section>
+  <p class="axiom" style="max-width:30ch;margin-bottom:2rem">
+    <span class="a1">No modelling of users.</span>
+    <span class="a2">No inferring reliability.</span>
+    <span class="a3">No steering of outcomes.</span>
+  </p>
+  <div class="prose">
+    <p>
+      <em>Zwischen</em> — German for the <em>in-between</em> — is a coordination system for small
+      groups. It shapes how people relate to what is forming: an evening, a match, a gathering. Most
+      coordination tools quietly become surveillance — scoring who is reliable, predicting who will
+      show, nudging behaviour toward a metric. Zwischen refuses all three. It makes the shared state
+      <strong>perceptible</strong> and lets the group act on what it sees.
+    </p>
+    <p>
+      The working core is a Telegram bot: groups form events, track participation and constraints,
+      handle waitlists and lifecycles, and — the part that matters most — carry <strong>memory</strong>
+      from one gathering into the next. Built in Python on <code>python-telegram-bot</code>,
+      SQLAlchemy, and PostgreSQL, with a Mini App and a standalone client on the roadmap.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="ledger" aria-label="Form, Participate, Surface, Carry">
+    <div class="cell">
+      <p class="step">01 — Form</p>
+      <p class="what">Event</p>
+      <p class="gloss">A gathering takes shape — time, place, the shape of the ask.</p>
+    </div>
+    <div class="cell">
+      <p class="step">02 — Participate</p>
+      <p class="what">Commitment</p>
+      <p class="gloss">People join, decline, or wait; constraints are held honestly.</p>
+    </div>
+    <div class="cell">
+      <p class="step">03 — Surface</p>
+      <p class="what">Perception</p>
+      <p class="gloss">Coordination state is made visible — no scores, no predictions.</p>
+    </div>
+    <div class="cell">
+      <p class="step">04 — Carry</p>
+      <p class="what">Memory</p>
+      <p class="gloss">What happened travels forward into the next gathering.</p>
+    </div>
+  </div>
+</section>
+
+<section class="index-grid">
+  <div class="section-head"><span class="idx">◆</span><h2>Where it lives</h2></div>
+  <div class="cards">
+    <a class="card" href="https://github.com/zorvan/Zwischen" rel="noopener">
+      <div class="cname">zorvan/Zwischen</div>
+      <p class="cdesc">The repository — a production-oriented Telegram bot, plus decision documents for the Mini App and standalone client.</p>
+      <span class="clang">Python · PostgreSQL · Docker</span>
+    </a>
+    <a class="card" href="https://medium.com/@zorvan">
+      <div class="cname">The essays behind it</div>
+      <p class="cdesc"><em>A Mediator for Event Materialization</em> and <em>The Coordination Operating System</em> — the thinking Zwischen implements.</p>
+      <span class="clang">Medium</span>
+    </a>
+  </div>
+  <p style="margin-top:1.6rem" class="muted">
+    Zwischen is the coordination half of the relational thesis; <a href="/diewan/">Diewan</a> is the
+    accountability half. Both hold that people can act together without being modelled or steered.
+  </p>
+</section>

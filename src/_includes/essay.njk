@@ -1,0 +1,27 @@
+---
+layout: base.njk
+---
+<article class="essay">
+  <header class="essay-head">
+    <p class="kicker">
+      {%- if folio %}<span class="folio">№ {{ folio }}</span> · {% endif -%}
+      Archive
+      {%- if date %} · <time datetime="{{ date | isoDate }}">{{ date | readableDate }}</time>{% endif -%}
+    </p>
+    <h1>{{ title }}</h1>
+    {% if subtitle %}<p class="lede">{{ subtitle }}</p>{% endif %}
+    {%- if tags %}
+    <p class="tags">
+      {%- for t in tags %}<span class="tag">{{ t }}</span>{% endfor -%}
+    </p>
+    {%- endif %}
+  </header>
+
+  <div class="prose">
+    {{ content | safe }}
+  </div>
+
+  <footer class="essay-foot">
+    <a class="back" href="/writing/">← the notebook</a>
+  </footer>
+</article>
